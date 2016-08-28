@@ -1,0 +1,51 @@
+<div class="container-fluid">
+
+    <div class="col-md-2">
+    	<h4>FILTER</h4>
+    	<h5>Brend</h5>
+    	<h5>Velicina</h5>
+    	<h5>Cijena</h5>
+    </div>
+
+    <div class="col-md-10">
+	    <div class="row">
+		
+                <% @products.each do |p|%>
+                <div class="col-sm-4 col-md-4 col-lg-4">
+		             <div class="thumbnail">
+		                    
+
+  <a href="<%=product_path(p.id)%>" class="thumbnail">
+            <img class="img-responsive" src="<%=p.image_url%>" alt="" style="height: 100px">
+ </a>
+
+		                   <div class="caption">
+                                <h4 class="pull-right"><%= p.price %>KM</h4>
+                                <h4><a href="#"><%= p.name %></a></h4>
+                                <p><%= p.description %></p>
+                            </div>
+                            <button class="btn">Dodaj u korpu</button>
+
+		                    <div class="ratings">
+                                <p class="pull-right">15 reviews</p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </p>
+                            </div>
+		             </div>
+		            </div>
+                <% end %>			
+		
+
+	    </div>
+        <div class="pager-justify">
+        <%= will_paginate @products, renderer: BootstrapPagination::Rails, bootstrap: 3,:previous_label => "Prethodna",:next_label => "Sljedeca"%>
+        </div>
+	</div>
+  
+</div>
+

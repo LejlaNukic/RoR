@@ -1,0 +1,18 @@
+<h1>Hello World!</h1>
+<% @user.each do |u| %>
+
+<p>
+	<%= u.username %><br/>
+	
+</p>
+
+<p>
+	<%= u.mail %>
+</p>
+
+
+<% end %>
+<% if signed_in? %>
+<p>Nestonesto.</p>
+<% end %>
+<%= link_to 'Dodaj novog korisnika', new_user_path %>
