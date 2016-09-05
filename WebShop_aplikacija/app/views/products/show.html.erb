@@ -1,34 +1,149 @@
+<div class="container">
+
 <div class="row">
-	<div class="col-lg-12">
-        <h1 class="page-header">Naziv proizvoda:
-            <small><%=@product.name%></small>
-        </h1>
-</div>
+    	<div class="col-lg-12">
+            <h1 class="page-header">Naziv proizvoda:
+                <small><%=@product.name%></small>
+            </h1>
+      </div>
 </div>
 
+
+
  <div class="col-md-6">
-        <img class="img-responsive" src="<%=@product.image_url%>" alt="">
+      <div class="row vdivide">
+          <img class="img-responsive" src="<%=@product.image_url%>" alt="">
+      </div>  
 </div>
 
  <div class="col-md-4">
- <h3>Opis proizvoda:</h3>
- <p><%=@product.description%></p>
- </div>
+        <p>
+        <strong><%=@product.category.name%> > <%=@product.brand.name%></strong>
+        </p>
+        <h3>Opis proizvoda:</h3>
+        <p><%=@product.description%></p>
+ 
+       
 
-  <div class="col-md-4">
- <h3>Cijena:</h3>
- <p><%=@product.price%>KM</p>
+        <h3>Boje:</h3>
+        <div class="padding-fixer">
+          <% @product.colors.distinct.each do |c| %>
+          <div id="color_<%=c.id%>" class="color-box" style="background-color: <%=c.password%>"></div>
+          <% end %>
+        </div>
 
-  <div class="button-style">
-          <button class="btn add-to-cart", id="product_<%=@product.id%>">Dodaj u korpu</button>
+        <div class="form-group">
+            <label>Velicina:</label>
+            <select id="sizes" name="size" class="form-control" style="width:31%;">
+            </select>
+        </div>
          
+          
+         <h3>Cijena:</h3>
+         <h2><%=@product.price%> KM</h2>
+
+        <div class="button-style">
+                <button class="btn btn-default btn-space", id="product_<%=@product.id%>">Dodaj u korpu</button>
+        </div>
+
+ </div>
+ 
+ 
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header">Jos proizvoda</h3>
+    </div>
+    <% @list.each do |li| %>
+
+          <div class="col-sm-3 col-xs-6 similar">
+            <a href="<%=product_path(li.id)%>" class="thumbnail">
+               <img class="img-responsive" src="<%=li.image_url%>" alt="" style="height: 100px">
+            </a>
+          </div>
+    <%end%>
 </div>
 
- </div>
+</div>
+<div class="row" style="height:40px">
+</div>
+
+<div class="row" style="height:40px">
+</div>
+
+
  
 
 
-<div class="col-lg-12">
-<%= link_to 'Nazad', products_path %>
- </div>
+
+
+<script type="text/javascript">
+window.onload = function () {
+  $('#sizes').empty();
+};
+
+selectedColor=0;
+
+$(".color-box").click(function(){
+  $("#sizes").empty();
+  productId= <%= @product.id %>;
+  colorId=$(this).attr('id').split("_")[1];
+  selectedColor=colorId;
+  $.get("/product_variants/sizes?color="+colorId+"&product="+productId,function(data){
+   
+   data.sort();
+   for(var i=0;i<data.length;i++){
+    $('#sizes').append('<option value="'+data[i]+'">'+data[i]+'</option>');
+   }
+  });
+
+})
+
+
+
+
+$(".btn").click(function(){
+  
+  
+
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "300",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+    online=<%= signed_in?%>;
+    if(online){
+        var currentId = $(this).attr('id');
+    Id=currentId.split("_")[1];
+    size=$("#sizes").val();
+   if ($('#sizes').is(':empty')) {
+            toastr.warning('Niste odabrali boju ni velicinu!');
+    }
+    else{
+     $.post("/line_items?product="+Id+"&color="+colorId+"&size="+size,function(data){
+       nesto=$("#cart-badge").html();
+      nesto++;
+      $("#cart-badge").html(nesto);
+     toastr.success('Uspjesno ste dodali artikal!');
+   });
+ }
+    }
+    else{
+       toastr.warning('Greska!Niste logovani.');
+
+    }
+
+})
  
+</script>

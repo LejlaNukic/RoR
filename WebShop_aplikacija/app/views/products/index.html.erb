@@ -1,51 +1,88 @@
 <div class="container-fluid">
 
-    <div class="col-md-2">
-    	<h4>FILTER</h4>
-    	<h5>Brend</h5>
-    	<h5>Velicina</h5>
-    	<h5>Cijena</h5>
-    </div>
+                <div class="col-md-2">
+                	<h4>FILTER</h4>
 
-    <div class="col-md-10">
-	    <div class="row">
-		
-                <% @products.each do |p|%>
-                <div class="col-sm-4 col-md-4 col-lg-4">
-		             <div class="thumbnail">
-		                    
+            <%= form_tag products_path, :method => :get do %>
 
-  <a href="<%=product_path(p.id)%>" class="thumbnail">
-            <img class="img-responsive" src="<%=p.image_url%>" alt="" style="height: 100px">
- </a>
+                	<h5 class="height-filler">Brend</h5>
+                     <select class="selectpicker" data-width="108%" name="brand">
+                        <option value="">Svi brendovi</option>
+                        <% Brand.all.each do |b| %>
+                        <option value="<%=b.id%>"><%=b.name%></option>
+                        <%end%>
+                     </select>
 
-		                   <div class="caption">
-                                <h4 class="pull-right"><%= p.price %>KM</h4>
-                                <h4><a href="#"><%= p.name %></a></h4>
-                                <p><%= p.description %></p>
-                            </div>
-                            <button class="btn">Dodaj u korpu</button>
+                	<h5 class="height-filler">Velicina</h5>
+                	     <select class="selectpicker" data-width="108%" name="size">
+                        <option value="">Sve velicine</option>
+                        <% ProductVariant.all.pluck(:size).uniq.sort.each do |s| %>  
+                        <option value="<%=s%>"><%=s%></option>
+                        <%end%>
+                     </select>
 
-		                    <div class="ratings">
-                                <p class="pull-right">15 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-		             </div>
-		            </div>
-                <% end %>			
-		
+              <h5 class="height-filler">Cijena</h5>
+              
+                <select class="selectpicker" data-width="108%" name="price">
+                        <option value="">Sve cijene</option>
+                        <option value="30-60">30 - 60</option>
+                        <option value="60-90">60 - 90</option>
+                        <option value="90-120">90 - 120</option>
+                        <option value="120-1000">120 - </option>
+                </select>
 
-	    </div>
-        <div class="pager-justify">
-        <%= will_paginate @products, renderer: BootstrapPagination::Rails, bootstrap: 3,:previous_label => "Prethodna",:next_label => "Sljedeca"%>
-        </div>
-	</div>
-  
+               
+
+                    
+                     <input type="hidden" name="category" value="<%= params[:category]%>"/>
+                     <%= submit_tag "Filtriraj" ,class: "btn btn-default btn-space filter", name: nil%>
+            <%end%>
+                    
+                </div>
+
+                  <div class="col-md-10">
+                  
+              	    <div class="row">
+              		      <% if flash[:empty] %>
+                            <h2><%=flash[:empty]%></h2>
+                        <%end%>
+                              <% @products.each do |p|%>
+                              <div class="col-sm-4 col-md-4 col-lg-4">
+              		             <div class="thumbnail">
+              		                    
+
+                <a href="<%=product_path(p.id)%>" class="thumbnail">
+                          <img class="img-responsive" src="<%=p.image_url%>" alt="" style="height: 100px">
+               </a>
+
+              		                   <div class="caption">
+                                              <h4 class="pull-right"><%= p.price %>KM</h4>
+                                              <h4><a href="#"><%= p.name %></a></h4>
+                                              <p><%= p.description %></p>
+                                              <p><%= p.brand.name %></p>
+                                              <p><%= p.category.name %></p>
+                                          </div>
+
+                                          <a href="<%=product_path(p.id)%>" >
+                                          <button class="btn btn-default btn-space btn-dodaj" id="dugme_<%= p.id %>">Prikazi detalje</button>
+                                          </a>
+
+              		                  
+              		             </div>
+              		            </div>
+                              <% end %>			
+              		
+
+              	    </div>
+                      <div class="pager-justify">
+                      <%= will_paginate @products, renderer: BootstrapPagination::Rails, bootstrap: 3,:previous_label => "Prethodna",:next_label => "Sljedeca"%>
+                      </div>
+              	</div>
+                
+                
 </div>
+
+
+
+
 

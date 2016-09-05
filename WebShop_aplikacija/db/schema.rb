@@ -11,29 +11,79 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160828145206) do
+ActiveRecord::Schema.define(version: 20160830145432) do
 
-  create_table "carts", force: true do |t|
+  create_table "brands", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "carts", force: :cascade do |t|
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "carts", ["user_id"], name: "index_carts_on_user_id"
 
-  create_table "products", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "image_url"
-    t.decimal  "price"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "username"
-    t.string   "mail"
-    t.string   "password_digest"
+  create_table "colors", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "password",   limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer  "quantity"
+    t.integer  "size"
+    t.integer  "color_id"
+    t.integer  "cart_id"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
+  add_index "line_items", ["color_id"], name: "index_line_items_on_color_id"
+  add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
+
+  create_table "product_variants", force: :cascade do |t|
+    t.integer  "size"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "color_id"
+    t.integer  "product_id"
+  end
+
+  add_index "product_variants", ["color_id"], name: "index_product_variants_on_color_id"
+  add_index "product_variants", ["product_id"], name: "index_product_variants_on_product_id"
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.text     "description"
+    t.string   "image_url",   limit: 255
+    t.decimal  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "brand_id"
+    t.integer  "category_id"
+  end
+
+  add_index "products", ["brand_id"], name: "index_products_on_brand_id"
+  add_index "products", ["category_id"], name: "index_products_on_category_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username",        limit: 255
+    t.string   "mail",            limit: 255
+    t.string   "password_digest", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end

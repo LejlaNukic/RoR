@@ -1,3 +1,164 @@
 // Place all the styles related to the Carts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
+
+body {
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+
+select{
+padding: 4px;
+}
+
+.navbar-inverse, .navbar-nav > li > a {
+  color:#fff;
+}
+
+.navbar-default{
+	margin-top: -50px;
+	background-color:#101010;
+}
+
+.height-filler{
+  padding-top: 14px;
+}
+
+.login-form{
+  background-color: #f6f6f6;
+  padding:15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
+.podaci{
+	margin:auto;
+}
+
+.btn-dark-grey{
+  background-color: #404040;
+  color: #ffffff;
+}
+
+.btn-dark-grey:hover{
+  color: orange;
+}
+
+.btn-dark-grey:focus{
+  color: orange;
+}
+
+.btn-inverse{
+  background-color: black;
+  color: white;
+}
+
+
+
+.right-align{
+  float: right;
+  margin-left: 5px;
+}
+
+.floated {
+   float:left;
+   margin-right:5px;
+}
+
+.navbar-inverse, .navbar-brand {
+  color:#fff;
+}
+
+.cart-payment{
+  width: auto;
+  border-radius: 3px;
+  border: 1px solid #d9d9d9;
+  padding: 20px;
+  margin-top: 88px;
+  margin-bottom: 15px;
+  h4{
+    margin-top: 15px;
+  }
+  p{
+    padding-right: 0%;
+  }
+}
+
+.k-p-d{
+  margin-bottom: 10px;
+  .korpa{
+    font-weight: bold;
+    border-bottom: 2px solid black;
+  }
+  .dostava{
+    color: #B3BABD;
+    border-bottom: 2px solid #B3BABD;
+  }
+  .placanje{
+    color: #B3BABD;
+    border-bottom: 2px solid #B3BABD;
+  }
+  .dostava2{
+    font-weight: bold;
+    border-bottom: 2px solid black;
+  }
+  .placanje2{
+    font-weight: bold;
+    border-bottom: 2px solid black;
+  }
+}
+
+.payment-info-box{
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  strong{
+    display: block;
+    padding: 2px 5px;
+  }
+}
+
+.info-form{
+  background-color: #f6f6f6; /* DEF2FA  */
+  padding:15px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
+
+
+.bootstrap-select>.btn{
+  width: 70%;
+}
+
+.disabled{
+  pointer-events: none;
+  color: gray;
+  border-color: gray;
+}
+
+.btn-space{
+  margin-top: 15px;
+}
+
+.max-widther{
+  width: 100%;
+}
+
+.img-placeholder{
+  border: 1px solid black;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.img-popover{
+  max-width: 100px;
+}
+
+textarea { resize: vertical; }

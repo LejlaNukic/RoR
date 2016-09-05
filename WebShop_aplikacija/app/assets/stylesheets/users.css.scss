@@ -1,8 +1,58 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
- @import "bootstrap";
- @import "bootstrap-sprockets";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.naslov{
+	margin-left: 34%;
+}
+
+.registracija-forma{
+background-color: #f6f6f6;
+padding: 15px;
+border-style: solid;
+border-width: 1px;
+border-color: #ddd;
+border-radius: 3px;
+margin-bottom: 15px;
+}
+
+#dugme-registracija{
+background-color: #101010;
+color: white;
+margin-left: 73%;
+}
+
+#dugme-registracija:hover{
+background-color: #f6f6f6;
+color: #101010;
+
+}
+
+.navbar > .container-fluid .navbar-brand{
+	color:white;
+}
+
+.navbar > .container-fluid .navbar-brand:hover{
+	color:silver;
+}
 
 
 
+.navbar-default{
+	margin-top: -50px;
+	background-color:#101010;
+}
+
+.navbar-default .navbar-nav>li>a{
+	color:white;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+	color:silver;
+}
+
+.navbar-default .navbar-nav>li>a:active{
+	color:silver;
+}

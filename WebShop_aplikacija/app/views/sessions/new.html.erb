@@ -1,39 +1,45 @@
-<div class="depot_form">
-<% if flash[:alert] %>
-<p id="notice"><%= flash[:alert] %></p>
-<% end %>
-
-<%= form_tag(sessions_path) do %>
+ <h2 class="naslov"> Prijava </h2> <br>
 <div class="col-md-4 col-md-offset-4">
+  <div class="registracija-forma">
 
-  <% if !flash[:error].nil? %>
+                  <div class="depot_form">
+                  <% if flash[:alert] %>
+                  <p id="notice"><%= flash[:alert] %></p>
+                  <% end %>
+                  </div>
 
-  <div class="alert alert-danger">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Greska!</strong> <%= flash[:error] %>
+          <%= form_tag(sessions_path) do %>
+
+
+                                <% if !flash[:error].nil? %>
+
+                                <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Greska!</strong> <%= flash[:error] %>
+                                </div>
+
+                                <% end %>
+
+                      <div class="form-group">
+                      <%= label :username,"Korisnicko ime:"%><br/>
+                      <%= text_field_tag :username,"", class:"form-control" %><br/>
+                      </div>
+
+
+                      <div class="form-group">
+                        <%= label :password,"Korisnicka sifra:" %><br/>
+                        <%= text_field_tag :password,"",class:"form-control" %><br/>
+                      </div>
+
+
+                      <p>
+                        <input type="submit" class="btn btn-default" id="dugme-prijava" value="Prijavi se">
+                        
+                      </p>
+
+          <% end %>
+
   </div>
-
-  <% end %>
-
-  <div class="form-group">
-  <%= label :username,"Korisnicko ime:"%><br/>
-  <%= text_field_tag :username,"", class:"form-control" %><br/>
-  </div>
-
-
-<div class="form-group">
-  <%= label :password,"Korisnicka sifra:" %><br/>
-  <%= text_field_tag :password,"",class:"form-control" %><br/>
-</div>
-
-
-<p>
-  <input type="submit" class="btn btn-default" value="Prijavi se">
-  
-</p>
-</div>
-<% end %>
-
 </div>
 
 

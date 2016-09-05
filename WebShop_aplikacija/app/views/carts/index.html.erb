@@ -1,0 +1,74 @@
+<div class="container">
+
+
+        <div class="col-md-8">
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Vasa korpa
+                        <small>Sadrzaj</small>
+                    </h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        <div>
+
+    
+
+      <% if @cart.line_items.count==0%>
+          <div >
+            <h3>Trenutno nemate artikala u korpi.</h3>
+            <%= button_to "Nazad na kupovinu",root_path,class:"btn btn-default", method: :get%>
+          </div>
+      <%end%>
+
+     <% @cart.line_items.each do |li| %>
+        <div class="row">
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" src="<%=li.product.image_url%>" alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3><%=li.product.name%></h3> 
+                <p>Kategorija: <%=li.product.category.name%></p>
+                <p>Brend: <%= li.product.brand.name %></p>
+                <p>Velicina: <%= li.size %></p>
+                <span>Boja:<div class="color-box fix-box" style="background-color: <%=li.color.password%>"></div></span> 
+                <p>Cijena:<strong> <%= li.product.price %> KM</strong></p>
+                <div class="row">
+                <%= button_to line_item_path(li),class: "btn btn-default floated" ,method: :delete do %>
+                  Obrisi <span class="glyphicon glyphicon-remove"></span>
+              
+                 <% @price=@price+li.product.price %>
+                <% end %>
+              </div>
+            </div>
+        </div>
+
+        <hr>
+    <% end %>
+
+
+         
+         <% if @cart.line_items.count!=0 %>
+       
+        <%= render 'data' %>
+        
+          <a href="<%=carts_next_path %>"><button type="button" name="button" class="btn btn-inverse right-align">Nastavi </button></a>
+        <% end %>
+
+
+        <% if !flash[:success].nil? %>
+        <script>
+        toastr.options.positionClass = 'toast-bottom-full-width';
+        toastr.options.extendedTimeOut = 0; //1000;
+        toastr.options.timeOut = 1000;
+        toastr.options.fadeOut = 250;
+        toastr.options.fadeIn = 250;
+        toastr.success('Uspjesno ste kupili artikle!');
+        </script>
+        <%end%>
+        
+
+</div>

@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
  
+  get 'product_variants/sizes'
+  resources :product_variants
+  get 'carts/next'
+  post 'carts/pay'
+
+  resources :categories
+
+  resources :line_items
+
+  resources :colors
 
   resources :carts
 
@@ -7,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new,:create,:destroy]
+  resources :charges
 
 
 
@@ -14,7 +25,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'users#index'
+  get 'products_path'=> 'products#index'
+  root 'products#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

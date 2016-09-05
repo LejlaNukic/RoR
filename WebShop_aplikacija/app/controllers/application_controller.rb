@@ -13,9 +13,5 @@ class ApplicationController < ActionController::Base
   	end
   end
 
-  def admin_rights
-  	if !(@current_user.username=="admin")
-  		redirect_to new_session_path
-  	end
-  end
+ 
 end
